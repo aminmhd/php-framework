@@ -33,7 +33,7 @@ class ComposerStaticInitad1f717fea0ab2810c39916027fe5f97
         ),
         'A' => 
         array (
-            'Aminmhd\\Framework\\' => 18,
+            'App\\' => 4,
         ),
     );
 
@@ -62,9 +62,9 @@ class ComposerStaticInitad1f717fea0ab2810c39916027fe5f97
         array (
             0 => __DIR__ . '/..' . '/vlucas/phpdotenv/src',
         ),
-        'Aminmhd\\Framework\\' => 
+        'App\\' => 
         array (
-            0 => __DIR__ . '/../..' . '/src',
+            0 => __DIR__ . '/../..' . '/App',
         ),
     );
 
