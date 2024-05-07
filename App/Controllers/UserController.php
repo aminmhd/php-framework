@@ -8,8 +8,8 @@ use App\Models\User;
 use function App\Utilities\view;
 
 class UserController{
-    public function index(){
-      $data = User::all();
+    public function index($id){
+      $data = User::all(); 
       return view("front.php", ['data' => $data]);
       
     }
