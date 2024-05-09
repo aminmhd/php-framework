@@ -32,8 +32,6 @@ include BASEPATH . "routes/web.php";
 
 
 
-
-
 // running the routing 
 $routing = new Routing($request);
 $routing->run();

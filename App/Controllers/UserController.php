@@ -19,11 +19,11 @@ class UserController{
     public function store(){
 
     }
-    public function edit(){
-
+    public function edit($id){
+       var_dump($id);
     }
     public function update(){
-
+     
     }
     public function delete(){
 

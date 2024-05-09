@@ -16,14 +16,18 @@ class Routing{
     public static function add($method, $uri, $controller, $middleware, $param){
       $action = explode("@", $controller);
       $route_array = ["method" => $method,
-       "middleware" => (count($middleware) > 0 ? $middleware : null) ,"uri" => $uri,
+       "middleware" => (count($middleware) > 0 ? $middleware : null) ,
+       "url" => $uri,
        "controller" => "App\\Controllers\\" . $action[0],
        "action" => $action[1],
        "params" => $param,
       ];
-      
       self::$routes[] = $route_array;
-      return self::$routes;
+      $routes = [
+        "current_route" => $route_array,
+        "routes" => self::$routes,
+      ];
+      return $routes;
     }
     
     public static function routes(){
@@ -50,20 +54,16 @@ class Routing{
     public function run(){
       $current_uri = $this->request->URI();
       foreach(self::$routes as $data){
-        var_dump($data["uri"]);
-        if(isset($data["uri"]) && $data["uri"] == $current_uri){
+        if(isset($data["url"]) && $data["url"] == $current_uri){
           $check_middleware = $this->check_middleware($data);
           if ($check_middleware){
             $action = $data["action"];          
             $controller = new $data["controller"];
             if (count($data["params"]) == 0){
               $controller->$action();
-              
             }else{
-              var_dump(extract($data["params"]));
               $controller->$action(extract($data["params"]));
             }
-            
           }
           else{
             die("We cannot let you access to next request");
