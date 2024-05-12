@@ -3,7 +3,8 @@
 
 namespace App\Core;
 
-
+use function App\Utilities\matching_url;
+use function App\Utilities\url_divider;
 
 class Routing{
     public $request = null;
@@ -13,20 +14,22 @@ class Routing{
     public function __construct($request){
       $this->request = $request;
     }
-    public static function add($method, $uri, $controller, $middleware, $param){
+    public static function add($method, $url, $controller, $middleware){
+      $data = url_divider($url);
       $action = explode("@", $controller);
       $route_array = ["method" => $method,
        "middleware" => (count($middleware) > 0 ? $middleware : null) ,
-       "url" => $uri,
+       "url" => $data["url"],
        "controller" => "App\\Controllers\\" . $action[0],
        "action" => $action[1],
-       "params" => $param,
+       "params" => $data["params"],
       ];
       self::$routes[] = $route_array;
       $routes = [
         "current_route" => $route_array,
         "routes" => self::$routes,
       ];
+      
       return $routes;
     }
     
@@ -51,10 +54,26 @@ class Routing{
       }
       
     }
+
+
+    private function find_param($matches = []){
+     $params = [];
+     if(count($matches) > 0){
+      foreach($matches as $key => $val){
+        if(!is_int($key)){
+          $params[$key] = $val;
+        }
+      }
+     }
+     return $params;
+    }
+
     public function run(){
-      $current_uri = $this->request->URI();
+      $current_url = $this->request->URI();
       foreach(self::$routes as $data){
-        if(isset($data["url"]) && $data["url"] == $current_uri){
+        $result = matching_url($current_url, $data["url"]);
+        if(isset($data["url"]) && $result["result"]){
+          $data["params"] = $this->find_param($result["matches"]);
           $check_middleware = $this->check_middleware($data);
           if ($check_middleware){
             $action = $data["action"];          
@@ -62,7 +81,7 @@ class Routing{
             if (count($data["params"]) == 0){
               $controller->$action();
             }else{
-              $controller->$action(extract($data["params"]));
+              $controller->$action(...array_values($data["params"]));
             }
           }
           else{

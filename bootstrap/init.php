@@ -6,7 +6,7 @@ use App\Core\Request;
 use App\Core\Routing;
 use App\Models\Model;
 use App\Models\User;
-use App\Middleware\UserMiddleware;
+
 
 
 define('BASEPATH', __DIR__ . '/../');
@@ -29,7 +29,7 @@ $usr = new User;
 
 // add all of routes to my ram
 include BASEPATH . "routes/web.php";
-
+include BASEPATH . "helpers/route.php";
 
 
 // running the routing 

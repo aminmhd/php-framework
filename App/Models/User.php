@@ -8,6 +8,7 @@ use PDO;
 
 class User extends Model {
     protected static $db;
+    
 
    public function __construct(){
       self::$db = parent::$conn;
@@ -28,6 +29,26 @@ class User extends Model {
 
    public static function update(){
 
+   }
+
+   public static function find($id){
+      $table = strtolower(basename(__CLASS__)) . "s";
+      $sql = "select * from {$table} where id={$id}";
+      $database = self::$db;
+      $stm = $database->prepare($sql); 
+      $stm->execute();
+      $data = $stm->fetch(PDO::FETCH_OBJ); 
+      return $data;
+   }
+
+   
+   public static function delete($id){
+      $table = strtolower(basename(__CLASS__)) . "s";
+      $sql = "delete from {$table} where id={$id}";
+      $database = self::$db;
+      $stm = $database->prepare($sql); 
+      $stm->execute();
+      return $stm->rowCount();
    }
 
 

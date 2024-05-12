@@ -7,7 +7,8 @@ use App\Core\Route;
 
 
 
-Route::get("/framework/index.php/user/index", "UserController@index", ["middleware" => "UserMiddleware"], ["id" => 1])->name("index");
+Route::get("/framework/index.php/user/index", "UserController@index", ["middleware" => "UserMiddleware"])->name("user.index");
+Route::get("/framework/index.php/user/delete/{id}", "UserController@delete", ["middleware" => "UserMiddleware"])->name("user.delete");
 // Route::get("/framework/index.php/user/edit", "UserController@edit", ["middleware" => "UserMiddleware"], ["id" => 2])->name("edit");
 // Route::get("/framework/index.php/user/update", "UserController@edit", ["middleware" => "UserMiddleware"], ["id" => 3])->name("update");
 // Route::get("/framework/index.php/user/delete", "UserController@edit", ["middleware" => "UserMiddleware"], ["id" => 4])->name("delete");

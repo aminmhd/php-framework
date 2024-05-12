@@ -8,9 +8,9 @@ use App\Models\User;
 use function App\Utilities\view;
 
 class UserController{
-    public function index($id){
-      $data = User::all(); 
-      return view("front.php", ['data' => $data]);
+    public function index(){
+      $data = User::all();  
+      return view("users/table.php", ['data' => $data]);
       
     }
     public function create(){
@@ -25,8 +25,10 @@ class UserController{
     public function update(){
      
     }
-    public function delete(){
-
+    public function delete($id){
+     var_dump("delete");
+     var_dump($id);
+    
     }
 
 }
