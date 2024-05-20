@@ -27,9 +27,12 @@ class Route{
       self::$routes = self::$renew_route;
     }
 
-    public static function post($url, $action, $middleware = [] , $param = []){
-      $route = Routing::add("POST", $url, $action, $middleware );
-      return $route;
+    public static function post($url, $action, $middleware = []){
+      $routes = Routing::add("POST", $url, $action, $middleware);  
+      self::$routes = $routes["routes"];
+      self::$current_route = $routes["current_route"];
+      $renew_object = new self();
+      return $renew_object;
     }
     
 }

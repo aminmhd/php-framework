@@ -5,15 +5,18 @@ use App\Core\Route;
 
 
 
+// Authentication 
+Route::get("/framework/index.php/loginform", "Auth\AuthController@loginform")->name("loginform");
+Route::post("/framework/index.php/login", "Auth\AuthController@login")->name("login");
+Route::get("/framework/index.php/registerform", "Auth\AuthController@registerform")->name("registerform");
+Route::post("/framework/index.php/register", "Auth\AuthController@register")->name("register");
+Route::get("/framework/index.php/logout", "Auth\AuthController@logout")->name("logout");
+
+
 
 
 Route::get("/framework/index.php/user/index", "UserController@index", ["middleware" => "UserMiddleware"])->name("user.index");
 Route::get("/framework/index.php/user/delete/{id}", "UserController@delete", ["middleware" => "UserMiddleware"])->name("user.delete");
-// Route::get("/framework/index.php/user/edit", "UserController@edit", ["middleware" => "UserMiddleware"], ["id" => 2])->name("edit");
-// Route::get("/framework/index.php/user/update", "UserController@edit", ["middleware" => "UserMiddleware"], ["id" => 3])->name("update");
-// Route::get("/framework/index.php/user/delete", "UserController@edit", ["middleware" => "UserMiddleware"], ["id" => 4])->name("delete");
-// Route::get("/framework/index.php/user/store", "UserController@edit", ["middleware" => "UserMiddleware"], ["id" => 5])->name("store");
 
 
-// var_dump(Route::$routes);
 

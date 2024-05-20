@@ -3,21 +3,23 @@
 
 namespace App\Core;
 
-use function App\Utilities\matching_url;
-use function App\Utilities\url_divider;
+use App\Core\Request;
+
+
 
 class Routing{
     public $request = null;
     private static $routes;
+    private $login_route_name = "loginform";
     
-  
-    public function __construct($request){
-      $this->request = $request;
+    public function __construct(){
+      $this->request = new Request();
     }
     public static function add($method, $url, $controller, $middleware){
       $data = url_divider($url);
       $action = explode("@", $controller);
-      $route_array = ["method" => $method,
+      $route_array = [
+       "method" => $method,
        "middleware" => (count($middleware) > 0 ? $middleware : null) ,
        "url" => $data["url"],
        "controller" => "App\\Controllers\\" . $action[0],
@@ -52,10 +54,7 @@ class Routing{
       else{
         return true;
       }
-      
     }
-
-
     private function find_param($matches = []){
      $params = [];
      if(count($matches) > 0){
@@ -70,25 +69,20 @@ class Routing{
 
     public function run(){
       $current_url = $this->request->URI();
+      $method = $this->request->method();
       foreach(self::$routes as $data){
         $result = matching_url($current_url, $data["url"]);
-        if(isset($data["url"]) && $result["result"]){
+        if(isset($data["url"]) && $result["result"] && $data["method"] == $method){
           $data["params"] = $this->find_param($result["matches"]);
           $check_middleware = $this->check_middleware($data);
           if ($check_middleware){
             $action = $data["action"];          
             $controller = new $data["controller"];
-            if (count($data["params"]) == 0){
-              $controller->$action();
-            }else{
-              $controller->$action(...array_values($data["params"]));
-            }
+            $controller->$action($this->request,...array_values($data["params"]));
           }
           else{
-            die("We cannot let you access to next request");
-          }
-
-          
+            return redirect($this->login_route_name);
+          }          
        }
       }
     }

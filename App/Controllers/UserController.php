@@ -5,13 +5,12 @@ namespace App\Controllers;
 
 use App\Models\User;
 
-use function App\Utilities\view;
+
 
 class UserController{
     public function index(){
       $data = User::all();  
       return view("users/table.php", ['data' => $data]);
-      
     }
     public function create(){
         

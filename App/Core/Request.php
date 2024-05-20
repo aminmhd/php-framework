@@ -4,7 +4,6 @@ namespace App\Core;
 
 class Request{
     public $PARAMS;
-
     public $HTTP_HOST;
     public $REQUEST_METHOD;
     public $REQUEST_URI;
@@ -18,16 +17,15 @@ class Request{
         $this->REQUEST_URI = $_SERVER["REQUEST_URI"];
         $this->QUERY_STRING = $_SERVER["QUERY_STRING"];
         $this->DOCUMENT_ROOT = $_SERVER["DOCUMENT_ROOT"];
-      
     }
-
+    
 
 
     public function host(){
         return $this->HTTP_HOST;
     }
     public function params(){
-        return $this->PARAMS ?? null;
+        return $this->PARAMS ?? [];
     }
     public function get($key){
         return $this->PARAMS[$key] ?? null;

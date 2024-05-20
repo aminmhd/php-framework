@@ -28,7 +28,22 @@ class User extends Model {
    }
 
    public static function update(){
-
+   
+   }
+   
+   
+   public static function where($params = []){
+      $table = strtolower(basename(__CLASS__)) . "s";
+      $sql = "SELECT * FROM {$table} WHERE";
+      foreach($params as $key => $val){
+      $sql .= " {$key}='{$val}'";
+     }
+     $database = self::$db;
+     $stm = $database->prepare($sql); 
+     $stm->execute();
+     $data = $stm->fetch(PDO::FETCH_OBJ); 
+     return $data;
+     
    }
 
    public static function find($id){

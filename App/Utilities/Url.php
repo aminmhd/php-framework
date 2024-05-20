@@ -1,5 +1,5 @@
 <?php 
-
+namespace App\Utilities;
 
 class Url{
     private const BASE_URL = "http://localhost";

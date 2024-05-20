@@ -7,13 +7,12 @@ use App\Core\Routing;
 use App\Models\Model;
 use App\Models\User;
 
-
-
 define('BASEPATH', __DIR__ . '/../');
-include BASEPATH . "vendor/autoload.php";
-include BASEPATH . "App/Utilities/func.php";
-include BASEPATH . "helpers/Url.php";
+// start session
+session_start();
 
+include BASEPATH . "vendor/autoload.php";
+include BASEPATH . "helpers/func.php";
 
 $dotenv = Dotenv::createImmutable(BASEPATH);
 $dotenv->load();
@@ -29,11 +28,11 @@ $usr = new User;
 
 // add all of routes to my ram
 include BASEPATH . "routes/web.php";
-include BASEPATH . "helpers/route.php";
+
 
 
 // running the routing 
-$routing = new Routing($request);
+$routing = new Routing();
 $routing->run();
 
 
