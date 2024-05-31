@@ -49,14 +49,9 @@
     <h2>Register</h2>
     <form method="post" action="<?= route("register") ?>">
         <input type="text" name="name" placeholder="Full Name" required>
-        <input type="text" name="email" placeholder="Username" required>
+        <input type="text" name="username" placeholder="Username" required>
         <input type="password" name="password" placeholder="Password" required>
-        <select name="gender" required>
-            <option value="" disabled selected>Select Gender</option>
-            <option value="male">Male</option>
-            <option value="female">Female</option>
-            <option value="other">Other</option>
-        </select>
+        <input type="email" name="email" placeholder="Email" required>
         <input type="submit" value="Register">
     </form>
 </div>

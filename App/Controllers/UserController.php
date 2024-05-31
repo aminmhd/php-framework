@@ -16,7 +16,7 @@ class UserController{
         
     }
     public function store(){
-
+    
     }
     public function edit($id){
        var_dump($id);
@@ -24,10 +24,9 @@ class UserController{
     public function update(){
      
     }
-    public function delete($id){
-     var_dump("delete");
-     var_dump($id);
-    
+    public function delete($request,$id){
+      User::delete($id);
+      return redirect("user.index");
     }
 
 }

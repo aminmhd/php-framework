@@ -33,9 +33,10 @@ class AuthController{
 
     
     public function register(Request $request){
-       
-     
-     
+       $data = $request->params();
+       $data["role"] = 2;
+       User::create($data);
+       return redirect($this->redirect_after_false_login);
     }
     public function logout(){
       Auth::logout();

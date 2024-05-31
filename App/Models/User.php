@@ -23,9 +23,6 @@ class User extends Model {
     $data = $stm->fetchAll(PDO::FETCH_OBJ); 
     return $data;
    }
-   public static function create(){
-    var_dump(self::$db);
-   }
 
    public static function update(){
    
@@ -35,9 +32,16 @@ class User extends Model {
    public static function where($params = []){
       $table = strtolower(basename(__CLASS__)) . "s";
       $sql = "SELECT * FROM {$table} WHERE";
+      $i = 1;
       foreach($params as $key => $val){
-      $sql .= " {$key}='{$val}'";
+      if ($i == count($params)){
+         $sql .= " {$key}='{$val}'";
+      }else{
+         $sql .= " {$key}='{$val}' and";
+      }
+      $i ++;
      }
+     var_dump($sql);
      $database = self::$db;
      $stm = $database->prepare($sql); 
      $stm->execute();
@@ -65,7 +69,17 @@ class User extends Model {
       $stm->execute();
       return $stm->rowCount();
    }
-
-
+   public static function create($data = []){
+      $table = strtolower(basename(__CLASS__)) . "s";
+      $keys = array_keys($data);
+      $columns = implode(",", $keys);
+      $values = ":". implode(" ,:", $keys);
+      $sql = "insert into {$table} ({$columns}) values ({$values})";
+      $database = self::$db;
+      $stm = $database->prepare($sql); 
+      $stm->execute($data);
+      return $stm->rowCount();
+      
+   }
 
 }
