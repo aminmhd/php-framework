@@ -25,7 +25,8 @@ class UserController{
      
     }
     public function delete($request,$id){
-      User::delete($id);
+      // User::delete($id);
+      with("success", "your User has been successfully removed!");
       return redirect("user.index");
     }
 

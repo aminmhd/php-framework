@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <?php include "views/notification.php" ?>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Data</title>
@@ -18,8 +19,10 @@
             background-color: #f2f2f2;
         }
     </style>
+
 </head>
 <body>
+    <?php include "views/notify.php" ?>
     <h2>User Data</h2>
     <table>
         <tr>
@@ -31,6 +34,7 @@
             <th>Operation</th>
 
         </tr>
+        
         
         <?php if(count($data) > 0): ?>
         <?php foreach($data as $val): ?>

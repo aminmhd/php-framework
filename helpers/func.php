@@ -1,7 +1,10 @@
 <?php 
 use App\Core\Route;
 
-
+function asset($directory){
+  $path = "/framework/public/" . $directory;
+  return $path;
+}
 
 function param_to_url($url, $param){
     if(count($param) > 0){
@@ -71,6 +74,18 @@ function redirect($name, $params = []){
   $route = route($name, $params);
    return header('Location: '.$route);
 }
+
+function with($category, $message, $extra = null){
+  $_SESSION["flash"][] = ["cat" => $category, "message" => $message, "ext" => $extra];
+}
+
+function get_flash_message(){
+  $messages = isset($_SESSION["flash"]) ? $_SESSION["flash"] : [];
+  unset($_SESSION["flash"]);
+  return $messages;
+}
+
+
 
 
 
