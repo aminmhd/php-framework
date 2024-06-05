@@ -41,7 +41,6 @@ class User extends Model {
       }
       $i ++;
      }
-     var_dump($sql);
      $database = self::$db;
      $stm = $database->prepare($sql); 
      $stm->execute();

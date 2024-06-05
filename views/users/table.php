@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <?php include "views/notification.php" ?>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Data</title>
@@ -28,6 +27,7 @@
         <tr>
             <th>Name</th>
             <th>Username</th>
+            <th>Email</th>
             <th>Created_at</th>
             <th>Updated_at</th>
             <th>Role</th>
@@ -41,6 +41,7 @@
             <tr style="font-weight: normal;color: blue">
             <th><?= $val->name ?></th>
             <th><?= $val->username ?></th>
+            <th><?= $val->email ?></th>
             <th><?= $val->created_at ?></th>
             <th><?= $val->updated_at ?></th>
             <th><?= $val->role ?></th>
