@@ -44,7 +44,7 @@
     </style>
 </head>
 <body>
-
+<?php include "views/notify.php" ?>
 <div class="form-container">
     <h2>Login</h2>
     <form method="post" action="<?= route("login") ?>">

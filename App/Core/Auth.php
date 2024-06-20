@@ -17,7 +17,6 @@ class Auth{
 
    public static function logout(){
     unset($_SESSION["user"]);
-    die("logout");
    }
 
    public static function find_user(){

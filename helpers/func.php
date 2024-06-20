@@ -46,8 +46,6 @@ function view($name ,$data = []){
     return include $path;
 }
 
-
-
 function matching_url($current, $route){
    $pattern = "/^" . str_replace(["/", "{", "}"], ["\/", "(?<", ">[-%\w]+)"], $route) . "/";
    $result = preg_match($pattern, $current, $matches);

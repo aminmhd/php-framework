@@ -9,7 +9,6 @@ class Request{
     public $REQUEST_URI;
     public $QUERY_STRING;
     public $DOCUMENT_ROOT;
-    
     public function __construct(){
         $this->PARAMS = $_REQUEST;
         $this->HTTP_HOST = $_SERVER["HTTP_HOST"];
@@ -19,8 +18,6 @@ class Request{
         $this->DOCUMENT_ROOT = $_SERVER["DOCUMENT_ROOT"];
     }
     
-
-
     public function host(){
         return $this->HTTP_HOST;
     }

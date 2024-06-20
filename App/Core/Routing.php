@@ -34,11 +34,6 @@ class Routing{
       
       return $routes;
     }
-    
-    public static function routes(){
-        return self::$routes;
-        
-    }
     private function check_middleware($data){
       if (isset($data["middleware"]) && $data["middleware"] != null){
         foreach($data["middleware"] as $val){
@@ -66,7 +61,6 @@ class Routing{
      }
      return $params;
     }
-
     public function run(){
       $current_url = $this->request->URI();
       $method = $this->request->method();
@@ -81,6 +75,7 @@ class Routing{
             $controller->$action($this->request,...array_values($data["params"]));
           }
           else{
+            with("error", "You don't have access to this page. You need to login first!");
             return redirect($this->login_route_name);
           }          
        }

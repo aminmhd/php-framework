@@ -18,7 +18,6 @@
             background-color: #f2f2f2;
         }
     </style>
-
 </head>
 <body>
     <?php include "views/notify.php" ?>
@@ -32,10 +31,7 @@
             <th>Updated_at</th>
             <th>Role</th>
             <th>Operation</th>
-
         </tr>
-        
-        
         <?php if(count($data) > 0): ?>
         <?php foreach($data as $val): ?>
             <tr style="font-weight: normal;color: blue">

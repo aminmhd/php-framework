@@ -19,7 +19,6 @@ class Model{
       self::$conn = $this->connect();
       
     }
-
     private function connect(){
        try{
           $options = [
@@ -32,6 +31,79 @@ class Model{
         echo "Connection failed: " . $e->getMessage();
       }
     }
+    public static function all(){
+      $class_namespace = explode("\\", get_called_class());
+      $table_name = strtolower(end($class_namespace) . "s");
+      $sql = "select * from {$table_name}";
+      $database = self::$conn;
+      $stm = $database->prepare($sql); 
+      $stm->execute();
+      $data = $stm->fetchAll(PDO::FETCH_OBJ); 
+      return $data;
+     }
+
+     public static function where($params = []){
+      $class_namespace = explode("\\", get_called_class());
+      $table_name = strtolower(end($class_namespace) . "s");
+      $sql = "SELECT * FROM {$table_name} WHERE";
+      $i = 1;
+      foreach($params as $key => $val){
+      if ($i == count($params)){
+         $sql .= " {$key}='{$val}'";
+      }else{
+         $sql .= " {$key}='{$val}' and";
+      }
+      $i ++;
+     }
+     $database = self::$conn;
+     $stm = $database->prepare($sql); 
+     $stm->execute();
+     $data = $stm->fetch(PDO::FETCH_OBJ); 
+     return $data; 
+   }
+
+   public static function find($id){
+    $class_namespace = explode("\\", get_called_class());
+    $table_name = strtolower(end($class_namespace) . "s");
+    $sql = "select * from {$table_name} where id={$id}";
+    $database = self::$conn;
+    $stm = $database->prepare($sql); 
+    $stm->execute();
+    $data = $stm->fetch(PDO::FETCH_OBJ); 
+    return $data;
+ }
+ 
+ 
+ public static function delete($id){
+    $class_namespace = explode("\\", get_called_class());
+    $table_name = strtolower(end($class_namespace) . "s");
+    $sql = "delete from {$table_name} where id={$id}";
+    $database = self::$conn;
+    $stm = $database->prepare($sql); 
+    $stm->execute();
+    return $stm->rowCount();
+ }
+ 
+ public static function create($data = []){
+    $class_namespace = explode("\\", get_called_class());
+    $table_name = strtolower(end($class_namespace) . "s");
+    $keys = array_keys($data);
+    $columns = implode(",", $keys);
+    $values = ":". implode(" ,:", $keys);
+    $sql = "insert into {$table_name} ({$columns}) values ({$values})";
+    $database = self::$conn;
+    $stm = $database->prepare($sql); 
+    $stm->execute($data);
+    return $stm->rowCount();
+
+ }
+
+
+
+
+
+
+
 
 
 }
