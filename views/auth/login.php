@@ -1,58 +1,32 @@
+
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f2f5;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-        }
-        .form-container {
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            width: 300px;
-        }
-        .form-container h2 {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        .form-container input {
-            width: 100%;
-            padding: 10px;
-            margin: 10px -10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-        .form-container input[type="submit"] {
-            background-color: #007bff;
-            color: white;
-            border: none;
-            cursor: pointer;
-        }
-        .form-container input[type="submit"]:hover {
-            background-color: #0056b3;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Glassmorphism Login Form | CodingNepal</title>
+  <link rel="stylesheet" href="<?= asset("css/style.css") ?>">
 </head>
 <body>
-<?php include "views/notify.php" ?>
-<div class="form-container">
-    <h2>Login</h2>
+  <?php include "views/notify.php" ?> 
+  <div class="wrapper">
     <form method="post" action="<?= route("login") ?>">
-        <input type="text" name="username" placeholder="Username" required>
-        <input type="password" name="password" placeholder="Password" required>
-        <input type="submit" value="Login">
+      <h2>Login</h2>
+        <div class="input-field">
+        <input type="text" name="email" required>
+        <label>Enter your email</label>
+      </div>
+      <div class="input-field">
+        <input type="password" name="password" required>
+        <label>Enter your password</label>
+      </div>
+      <button type="submit">Log In</button>
+      <div class="register">
+        <p>Don't have an account? <a href="<?= route("registerform") ?>">Register</a></p>
+      </div>
     </form>
-</div>
-
+  </div>
 </body>
 </html>
+
+

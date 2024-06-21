@@ -16,7 +16,7 @@ class AuthController{
       return view("auth/login.php");
     }
     public function login(Request $request){
-      $user = User::where([$this->username => $request->get("username")]);
+      $user = User::where([$this->username => $request->get("email")]);
       if ($user){
         if($request->get($this->password) == $user->password){
           $auth = Auth::login($user);
