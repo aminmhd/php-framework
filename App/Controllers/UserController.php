@@ -17,7 +17,7 @@ class UserController{
     }
     public function store(Request $request){
       User::create($request->params());
-      with("success", "You are successfully created the record.");
+      with("success", "You are successfully created the record.", "user.index");
       return redirect("user.index");
     }
     public function edit($id){
@@ -28,7 +28,7 @@ class UserController{
     }
     public function delete($request,$id){
       User::delete($id);
-      with("success", "your User has been successfully removed!");
+      with("success", "your User has been successfully removed!", "user.index");
       return redirect("user.index");
     }
     

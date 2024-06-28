@@ -20,11 +20,11 @@ class AuthController{
       if ($user){
         if($request->get($this->password) == $user->password){
           $auth = Auth::login($user);
-          with("success", "You are successfully logged in.");
+          with("success", "You are successfully logged in.", $this->redirect_after_true_login);
           return redirect($this->redirect_after_true_login) ? $auth : die("There is a problem when user was logged in");
         }
       }else{
-         with("error", "You didn't login, there are some problems with your login information!");
+         with("error", "You didn't login, there are some problems with your login information!", $this->redirect_after_false_login);
          return redirect($this->redirect_after_false_login);
       }
     } 
@@ -37,13 +37,13 @@ class AuthController{
        $data = $request->params();
        $data["role"] = 2;
        User::create($data);
-       with("success", "You are successfully registered");
+       with("success", "You are successfully registered", $this->redirect_after_false_login);
        return redirect($this->redirect_after_false_login);
     }
     public function logout(){
       
       Auth::logout();
-      with("success", "You are successfully logged out!");
+      with("success", "You are successfully logged out!", $this->redirect_after_false_login);
       return redirect($this->redirect_after_false_login);
     } 
 

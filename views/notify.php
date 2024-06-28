@@ -3,27 +3,26 @@
 <script src="<?= asset("izi/dist/js/iziToast.min.js") ?>" type="text/javascript"></script>
 
 
-<?php $message = get_flash_message($unset = false); ?>
+<?php $message = get_flash_message(); ?>
 <?php if(count($message) > 0): ?>
     <?php foreach($message as $key => $value): ?>
-       <?php if($message[$key]["cat"] == "success"): ?>
+        <?php if($message[$key]["cat"] == "success"): ?>
             <script>
-            iziToast.success({
-                title: '<?= $message[$key]["cat"] ?>',
-                message: '<?= $message[$key]["message"] ?>',
-            });
+                iziToast.success({
+                    title: <?= json_encode($message[$key]["cat"]) ?>,
+                    message: <?= json_encode($message[$key]["message"]) ?>,
+                });
             </script>
-        <?php endif ?>
-       <?php if($message[$key]["cat"] == "error"): ?>
-        <script>
-            iziToast.error({
-                title: '<?= $message[$key]["cat"] ?>',
-                message: '<?= $message[$key]["message"] ?>',
-            });
+        <?php elseif($message[$key]["cat"] == "error"): ?>
+            <script>
+                iziToast.error({
+                    title: <?= json_encode($message[$key]["cat"]) ?>,
+                    message: <?= json_encode($message[$key]["message"]) ?>,
+                });
             </script>
-       <?php endif ?>
-    <?php endforeach ?>
-    <?php endif ?>
+        <?php endif; ?>
+    <?php endforeach; ?>
+<?php endif; ?>
 
 
     

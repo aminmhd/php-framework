@@ -1,5 +1,6 @@
 <?php 
 use App\Core\Route;
+use App\Utilities\Url;
 
 function asset($directory){
   $path = "/framework/public/" . $directory;
@@ -68,13 +69,17 @@ function url_divider($url){
   
 }
 
-function redirect($name, $params = []){
-  $route = route($name, $params);
+function redirect($name, $params = [], $messages = []){
+   $route = route($name, $params);
+   foreach($messages as $category => $message ){
+    $_SESSION["flash"][] = ["cat" => $category, "message" => $message, "url" => $route ];
+   }
+   
    return header('Location: '.$route);
 }
 
-function with($category, $message, $extra = null){
-  $_SESSION["flash"][] = ["cat" => $category, "message" => $message, "ext" => $extra];
+function with($category, $message, $route_name ,$extra = null){
+  $_SESSION["flash"][] = ["cat" => $category, "message" => $message, "ext" => $extra, "url" => route($route_name)];
 }
 
 function session_maker($data = []){
@@ -92,13 +97,17 @@ function get_session($name, $unset = true){
 
 function get_flash_message($unset = true){
   $messages = isset($_SESSION["flash"]) ? $_SESSION["flash"] : [];
-  if ($unset) { unset($_SESSION["flash"]); }
-  return $messages;
+  $corresponded_messages = [];
+  foreach ($messages as $message){
+    if ($message["url"] == $_SERVER["REQUEST_URI"]){
+      $corresponded_messages[] = $message;
+      if ($unset) { unset($_SESSION["flash"]); }
+    }
+  }
+  return $corresponded_messages;
 }
 
-// function removing_flash_messages(){
-//   unset($_SESSION["flash"]);
-// }
+
 
 
 

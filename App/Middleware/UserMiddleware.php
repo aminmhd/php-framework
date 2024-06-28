@@ -11,8 +11,7 @@ class UserMiddleware{
       if (Auth::check() && Auth::find_user()){
         return $this->next;
       }else
-        session_maker(["error" => "You need to login first, you don't have access to this page!"]);
-        return redirect($this->login_page);
+        return redirect(name: $this->login_page , messages: ["error" => "You don't have access to this page. Please login first !"]);
       }
     }
   
