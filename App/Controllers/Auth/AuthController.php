@@ -24,6 +24,7 @@ class AuthController{
           return redirect($this->redirect_after_true_login) ? $auth : die("There is a problem when user was logged in");
         }
       }else{
+         with("error", "You didn't login, there are some problems with your login information!");
          return redirect($this->redirect_after_false_login);
       }
     } 

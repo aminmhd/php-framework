@@ -46,6 +46,7 @@
     </style>
 </head>
 <body>
+    <?php include "views/notify.php" ?> 
     <form action="#" method="post">
         <h2>Simple Form</h2>
         <label for="name">Name:</label>

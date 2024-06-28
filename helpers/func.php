@@ -77,11 +77,29 @@ function with($category, $message, $extra = null){
   $_SESSION["flash"][] = ["cat" => $category, "message" => $message, "ext" => $extra];
 }
 
-function get_flash_message(){
+function session_maker($data = []){
+  foreach($data as $key => $value){
+    $_SESSION[$key] = $value; 
+  }
+  return true;
+}
+
+function get_session($name, $unset = true){
+ $session = $_SESSION[$name];
+ if ($unset) { unset($_SESSION[$name]); }
+ return $session; 
+}
+
+function get_flash_message($unset = true){
   $messages = isset($_SESSION["flash"]) ? $_SESSION["flash"] : [];
-  unset($_SESSION["flash"]);
+  if ($unset) { unset($_SESSION["flash"]); }
   return $messages;
 }
+
+// function removing_flash_messages(){
+//   unset($_SESSION["flash"]);
+// }
+
 
 
 

@@ -3,10 +3,9 @@
 <script src="<?= asset("izi/dist/js/iziToast.min.js") ?>" type="text/javascript"></script>
 
 
-<?php $message = get_flash_message(); ?>
-
+<?php $message = get_flash_message($unset = false); ?>
 <?php if(count($message) > 0): ?>
-   <?php foreach($message as $key => $value): ?>
+    <?php foreach($message as $key => $value): ?>
        <?php if($message[$key]["cat"] == "success"): ?>
             <script>
             iziToast.success({
@@ -14,15 +13,15 @@
                 message: '<?= $message[$key]["message"] ?>',
             });
             </script>
-    <?php endif ?>
-    <?php if($message[$key]["cat"] == "error"): ?>
+        <?php endif ?>
+       <?php if($message[$key]["cat"] == "error"): ?>
         <script>
             iziToast.error({
                 title: '<?= $message[$key]["cat"] ?>',
                 message: '<?= $message[$key]["message"] ?>',
             });
             </script>
-    <?php endif ?>
+       <?php endif ?>
     <?php endforeach ?>
     <?php endif ?>
 

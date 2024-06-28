@@ -20,7 +20,7 @@
     </style>
 </head>
 <body>
-    <?php include "views/notify.php" ?>
+    <?php include "views/notify.php" ?> 
     <h2>User Data</h2>
     <table>
         <tr>
