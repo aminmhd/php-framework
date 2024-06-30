@@ -1,4 +1,6 @@
-<?php 
+<?php
+
+use App\Core\Request;
 use App\Core\Route;
 use App\Utilities\Url;
 
@@ -48,12 +50,19 @@ function view($name ,$data = []){
 }
 
 function matching_url($current, $route){
+   $request = new Request();
    $pattern = "/^" . str_replace(["/", "{", "}"], ["\/", "(?<", ">[-%\w]+)"], $route) . "/";
    $result = preg_match($pattern, $current, $matches);
    $dispatch = [
     "result" => $result,
     "matches" => $matches,
    ];
+   foreach ($dispatch["matches"] as $key => $val){
+    if ($key == 0 && $request->URI() != $val){
+      
+      return [];
+    }
+   }
    return $dispatch;
 }
 

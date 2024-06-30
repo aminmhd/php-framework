@@ -4,8 +4,7 @@
 namespace App\Core;
 
 use App\Core\Request;
-
-
+use App\Utilities\Url;
 
 class Routing{
     public $request = null;
@@ -64,7 +63,7 @@ class Routing{
           $data["params"] = $this->find_param($result["matches"]);
           $action = $data["action"];          
           $controller = new $data["controller"];
-          $controller->$action($this->request,...array_values($data["params"]));
+          return $controller->$action($this->request,...array_values($data["params"]));
           } 
        } 
       }

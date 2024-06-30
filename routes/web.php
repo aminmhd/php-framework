@@ -17,9 +17,10 @@ Route::get("/framework/index.php/logout", "Auth\AuthController@logout")->name("l
 Route::get("/framework/index.php/user/create", "UserController@create", ["middleware" => "UserMiddleware"])->name("user.create");
 Route::post("/framework/index.php/user/create", "UserController@store", ["middleware" => "UserMiddleware"])->name("user.store");
 
-
 Route::get("/framework/index.php/user/index", "UserController@index", ["middleware" => "UserMiddleware"])->name("user.index");
 Route::get("/framework/index.php/user/delete/{id}", "UserController@delete", ["middleware" => "UserMiddleware"])->name("user.delete");
+
+
 
 
 
